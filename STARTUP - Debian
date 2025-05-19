@@ -1,8 +1,7 @@
-sudo -s -- <<EOF
-apt-get update
-apt-get upgrade -y
-apt-get full-upgrade -y
-apt-get autoremove -y
-apt-get autoclean -y
-apt get-install sudo wget curl net-tools unzip -y
-EOF
+PRIME CONFIGURAZIONI
+1- Installare pacchetti base
+      # apt get-install sudo wget curl net-tools unzip -y
+2- Settare TimeZone corretto      
+      # timedatectl set-timezone Europe/Rome
+3- Aggiornare server
+      # apt update & apt upgrade -y
