@@ -1,0 +1,10 @@
+INSTALLAZIONE
+1- Creare LXC Ubuntu LTS
+2- Aggiungere mountpoint per disco
+      # nano /etc/pve/lxc/XXX.conf
+      # mp0: /mnt/hdd-data,mp=/mnt/hdd-data,ro=0
+3- Installare CockPit - https://cockpit-project.org/running#ubuntu
+4- Installare 45Drives - https://github.com/45Drives/cockpit-file-sharing
+5- Installare WSDD - https://github.com/christgau/wsdd
+
+CONFIGURAZIONE
