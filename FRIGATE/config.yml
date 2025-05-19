@@ -1,0 +1,101 @@
+############# CORE #############
+#auth:
+#  reset_admin_password: true
+
+mqtt:
+  enabled: false
+
+database:
+  path: /db/frigate.db
+
+ffmpeg:
+  hwaccel_args: preset-vaapi
+
+birdseye:
+  enabled: false
+
+detectors:
+  openvino:
+    type: openvino
+    device: CPU
+    model:
+      path: /openvino-model/ssdlite_mobilenet_v2.xml
+
+model:
+  width: 300
+  height: 300
+  input_tensor: nhwc
+  input_pixel_format: bgr
+  path: /openvino-model/ssdlite_mobilenet_v2.xml
+  labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+
+snapshots:
+  enabled: false
+
+record:
+  sync_recordings: True
+  enabled: true
+  retain:
+    days: 1
+    mode: motion
+
+version: 0.15-1
+
+############# DETECTIONS #############
+
+objects:
+  track:
+    - person
+    - door
+    - car
+    - truck
+    - bicycle
+    - motorcycle
+    - bus
+    - dog
+    - cat
+
+audio:
+  enabled: false
+  listen:
+    - glass_break
+    - gunshot
+    - scream
+    - door_bell
+    - door_knock
+    - alarm
+    - siren
+    - fire_alarm
+    - smoke_alarm
+    - carbon_monoxide_alarm
+    - beep
+    - baby_cry
+    - dog_bark
+    - cat_meow
+
+############# CAMERE #############
+cameras:
+
+### STUDIO ###
+  Studio:
+    onvif:
+      host: 192.168.100.84
+      port: 2020
+      user: rstpadm
+      password: pietro96
+    ffmpeg:
+      inputs:
+        - path: rtsp://rstpadm:pietro96@192.168.100.84:554/stream1
+          roles:
+            - record
+            - audio
+        - path: rtsp://rstpadm:pietro96@192.168.100.84:554/stream2
+          roles:
+            - detect
+    detect:
+      enabled: true
+      width: 640
+      height: 360
+      fps: 1
+    motion:
+      mask: 0.357,0.055,0.357,0,0.001,0,0,0.054
