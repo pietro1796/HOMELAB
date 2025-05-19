@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  frigate:
+    container_name: frigate
+    restart: unless-stopped
+    image: ghcr.io/blakeblackshear/frigate:stable
+    privileged: True
+    shm_size: "256mb"
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri/card0:/dev/dri/card0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/hdd-data/CCTV/frigate/db:/db
+      - /mnt/hdd-data/CCTV/frigate/config.yml:/config/config.yml
+      - /mnt/hdd-data/CCTV/frigate/media:/media/frigate
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+    environment:
+      - XDG_RUNTIME_DIR=/tmp/runtime-0
+      - LIBVA_DRIVER_NAME=i965
+    ports:
+      - "8971:8971"
+      - "5000:5000"
+      - "1984:1984"
+      - "8554:8554"
+      - "8555:8555/tcp"
+      - "8555:8555/udp"
