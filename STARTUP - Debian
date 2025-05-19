@@ -4,4 +4,5 @@ apt-get upgrade -y
 apt-get full-upgrade -y
 apt-get autoremove -y
 apt-get autoclean -y
+apt get-install sudo wget curl net-tools unzip -y
 EOF
