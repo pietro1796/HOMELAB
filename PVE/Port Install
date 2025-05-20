@@ -1,0 +1,2 @@
+echo "vm.swappiness = 10" >> /etc/sysctl.conf
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/post-pve-install.sh)"
