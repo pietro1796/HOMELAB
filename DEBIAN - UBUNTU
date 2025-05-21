@@ -1,7 +1,7 @@
 PRIME CONFIGURAZIONI
-1- Installare pacchetti base
-      # apt get-install sudo wget curl net-tools unzip -y
-2- Settare TimeZone corretto      
-      # timedatectl set-timezone Europe/Rome
-3- Aggiornare server
+1- Aggiornare server
       # apt update & apt upgrade -y
+2- Installare pacchetti base
+      # apt install sudo wget curl net-tools unzip -y
+3- Settare TimeZone corretto      
+      # timedatectl set-timezone Europe/Rome
