@@ -1,4 +1,2 @@
-echo "vm.swappiness = 10" >> /etc/sysctl.conf
-apt update & apt upgrade -y
-apt install sudo wget curl net-tools unzip -y
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/debian.sh)"
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/post-pve-install.sh)"
