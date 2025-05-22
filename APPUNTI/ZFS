@@ -1,0 +1,13 @@
+nano /etc/modprobe.d/zfs.conf
+options zfs zfs_arc_max=4294967296
+nano /etc/sysctl.conf
+vm.swappiness = 10
+
+reboot
+
+zpool create -f -o ashift=12 hdd-pool mirror <device1> <device2>
+zfs set compression=lz4 
+zpool upgrade
+
+zfs create hdd-pool/hdd-pve-data
+zfs create hdd-pool/hdd-data
