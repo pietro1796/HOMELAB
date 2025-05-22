@@ -4,3 +4,5 @@ apt update & apt upgrade -y
 apt install sudo wget curl net-tools unzip -y
 # Settare TimeZone corretto      
 timedatectl set-timezone Europe/Rome
+# Set Swappiness
+echo "vm.swappiness = 10" >> /etc/sysctl.conf
