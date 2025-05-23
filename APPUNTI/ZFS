@@ -1,5 +1,5 @@
 #CREAZIONE DATASET SSD-POOL
-zfs create sdd-pool/sdd-pve-data
+zfs create ssd-pool/ssd-pve-data
 
 #CREAZIONE DATASET HDD-POOL
 zfs create hdd-pool/hdd-pve-data
