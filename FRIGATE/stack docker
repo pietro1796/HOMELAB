@@ -21,7 +21,7 @@ services:
           size: 1000000000
     environment:
       - XDG_RUNTIME_DIR=/tmp/runtime-0
-      - LIBVA_DRIVER_NAME=i965
+      #- LIBVA_DRIVER_NAME=i965
     ports:
       - "8971:8971"
       - "5000:5000"
