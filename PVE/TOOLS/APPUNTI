@@ -1,0 +1,11 @@
+#CONFIGURAZIONE MONITORING
+- creato gruppo read_only
+- aggiunte permission PVEAuditor
+- creato utente checkmk pietro96X
+- installazione aget
+	wget http://192.168.179.11/monitoring/check_mk/agents/check-mk-agent_2.4.0p2-1_all.deb
+	dpkg -i check-mk-agent_2.4.0p2-1_all.deb
+	cmk-agent-ctl register --hostname pve.pietrohome.it --server 192.168.179.11 --site monitoring --user agent_registration --password 'pietro96X'
+
+#SALVATAGGIO FILE IMPORTANTI
+https://gist.github.com/mrpeardotnet/6bdc4b504f43ce57fa7eaee96d376edf
