@@ -12,3 +12,5 @@ echo "vm.swappiness = 10" >> /etc/sysctl.conf
 echo "Settata Swappiness"
 #Set SHH Login
 sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+systemctl restart ssh
+echo "SSH Abilitato"
