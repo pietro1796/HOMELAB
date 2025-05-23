@@ -1,4 +1,4 @@
-#apt update && apt install curl -y && bash -c "$(curl -fsSL https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/debian.sh)"
+#apt update -y > /dev/null && apt install curl -y && bash -c "$(curl -fsSL https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/debian.sh)"
 # Aggiornare server
 apt update -y > /dev/null && apt upgrade -y > /dev/null
 echo "Finiti Aggiornamenti"
