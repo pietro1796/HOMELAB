@@ -1,5 +1,5 @@
 # Aggiornare server
-apt update -y > /dev/null && sudo apt upgrade -y > /dev/null
+apt update -y > /dev/null && apt upgrade -y > /dev/null
 echo "Finiti Aggiornamenti"
 # Installare pacchetti base
 apt install sudo wget curl net-tools unzip -y
