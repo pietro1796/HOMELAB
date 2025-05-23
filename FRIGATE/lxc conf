@@ -1,0 +1,11 @@
+arch: amd64
+cores: 2
+dev0: /dev/dri/card0
+dev1: /dev/dri/renderD128
+hostname: frigate
+memory: 2048
+mp0: /hdd-pool/hdd-data,mp=/hdd-data
+net0: name=eth0,bridge=vmbr0,gw=192.168.100.1,hwaddr=BC:24:11:61:A8:6E,ip=192.168.100.2/24,tag=100,type=veth
+ostype: debian
+rootfs: ssd-pve-data:subvol-107-disk-0,size=10G
+swap: 512
