@@ -1,5 +1,5 @@
 # Aggiornare server
-apt update & apt upgrade -y
+apt update -y > /dev/null && sudo apt upgrade -y > /dev/null
 echo "Finiti Aggiornamenti"
 # Installare pacchetti base
 apt install sudo wget curl net-tools unzip -y
@@ -10,3 +10,5 @@ echo "Settato TimeZone"
 # Set Swappiness
 echo "vm.swappiness = 10" >> /etc/sysctl.conf
 echo "Settata Swappiness"
+#Set SHH Login
+sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
