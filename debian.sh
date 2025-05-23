@@ -3,7 +3,7 @@
 apt update -y > /dev/null && apt upgrade -y > /dev/null
 echo "Finiti Aggiornamenti"
 # Installare pacchetti base
-apt install sudo wget curl net-tools unzip -y
+apt install sudo wget curl net-tools vainfo unzip -y
 echo "Installati pacchetti"
 # Settare TimeZone corretto      
 timedatectl set-timezone Europe/Rome
