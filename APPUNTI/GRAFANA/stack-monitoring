@@ -1,0 +1,101 @@
+version: '3.8'
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+  influxdb_data: {}
+  influxdb_config: {}
+  chronograf_data: {}
+  ping_data: {}
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=60d'
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:1.11
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: influxdb_data
+        target: /var/lib/influxdb
+      - type: volume
+        source: influxdb_config
+        target: /etc/influxdb
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8086:8086"
+
+  chronograf:
+    container_name: chronograf
+    image: chronograf:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - chronograf_data:/var/lib/chronograf
+    depends_on:
+      - influxdb
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=pietro96X
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - grafana_data:/var/lib/grafana
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+  speedflux:
+    container_name: speedflux
+    image: breadlysm/speedtest-to-influxdb
+    build: .
+    environment:
+      - NAMESPACE=None
+      - INFLUX_DB_ADDRESS=192.168.179.10
+      - INFLUX_DB_PORT=8086
+      - INFLUX_DB_USER=speedtest
+      - INFLUX_DB_PASSWORD=pietro96X
+      - INFLUX_DB_DATABASE=speedtest
+      - INFLUX_DB_TAGS=[*] 
+      - SPEEDTEST_INTERVAL=60 
+      - PING_INTERVAL=60
+      - PING_TARGETS=8.8.8.8,1.1.1.1
+      - LOG_TYPE=info
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+     - influxdb
+    restart: unless-stopped
+
+  ping_exporter:
+    image: czerwonk/ping_exporter
+    container_name: ping_exporter
+    ports:
+      - "9427:9427"
+    volumes:
+      - "/data/compose/4/ping_data/config:/config:ro"
+    restart: unless-stopped
