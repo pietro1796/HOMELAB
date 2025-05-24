@@ -12,8 +12,8 @@ services:
       - /dev/dri/card0:/dev/dri/card0
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/hdd-data/CCTV/frigate/db:/db
-      - /mnt/hdd-data/CCTV/frigate/config.yml:/config/config.yml
+      - /home/frigate/db:/db
+      - /homefrigate/config.yml:/config/config.yml
       - /mnt/hdd-data/CCTV/frigate/media:/media/frigate
       - type: tmpfs
         target: /tmp/cache
@@ -21,7 +21,6 @@ services:
           size: 1000000000
     environment:
       - XDG_RUNTIME_DIR=/tmp/runtime-0
-      #- LIBVA_DRIVER_NAME=i965
     ports:
       - "8971:8971"
       - "5000:5000"
