@@ -1,9 +1,10 @@
 action: telegram_bot.send_message
 metadata: {}
 data:
-  message: | 
-  
-     La lavatrice ha finito! 
-     Ora tocca a te! 😅
-  title: "🏠 *HA: Lavatrice Pronta!*"
+  message: |
+    🏠 *HA: Lavatrice Pronta!🧴*
+
+    La lavatrice ha finito! 
+    Ora tocca a te! 😅
   parse_mode: markdown
+  target: -1002386840244
