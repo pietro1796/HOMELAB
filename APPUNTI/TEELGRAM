@@ -1,13 +1,12 @@
 DATI BOT
-
-Name: GanettiHomeBot
-Username: ganettihome_bot
-Token: 8199759250:AAFVwc0ngStmAVvKwgePMrKF_2JWkNNGx30
-
-https://api.telegram.org/bot8199759250:AAFVwc0ngStmAVvKwgePMrKF_2JWkNNGx30/getUpdates
-
+  Name: GanetsBot
+  Username: ganetsbot_bot
+  Token: 7808591138:AAHm7q2k74nK-65ZP85lsa3UwHTIeK1Tmc0
+  https://api.telegram.org/bot7808591138:AAHm7q2k74nK-65ZP85lsa3UwHTIeK1Tmc0/getUpdates?offset:-1
 
 DATI CHAT
+  Name: HOME ASSISTANT
+  ID: -1002386840244
 
-Name: ALERT HOME
-ID: -1002614719529
+  Name: ALERT HOME
+  ID: -1002321998386
