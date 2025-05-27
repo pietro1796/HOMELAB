@@ -7,6 +7,8 @@ DATI BOT
 DATI CHAT
   Name: HOME ASSISTANT
   ID: -1002386840244
+  TEST: https://api.telegram.org/bot7808591138:AAHm7q2k74nK-65ZP85lsa3UwHTIeK1Tmc0/sendMessage?chat_id=-1002386840244&text=Test%20Message
 
   Name: ALERT HOME
   ID: -1002321998386
+  TEST: https://api.telegram.org/bot7808591138:AAHm7q2k74nK-65ZP85lsa3UwHTIeK1Tmc0/sendMessage?chat_id=-1002321998386&text=Test%20Message
