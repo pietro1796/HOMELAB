@@ -1,6 +1,6 @@
 apt install nginx certbot python3-certbot-nginx
 
-nano /etc/nginx/ssl/cloudflare.ini
+touch /etc/nginx/ssl/cloudflare.ini
 echo "dns_cloudflare_api_token = sguj4KHrOUCz9tjrZfVr3XfryTQPZP2rrKn8pDKu"
 chmod 600 /etc/nginx/ssl/cloudflare.ini
 
