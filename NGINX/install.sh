@@ -1,7 +1,7 @@
 apt install nginx certbot python3-certbot-nginx
 
 nano /etc/nginx/ssl/cloudflare.ini
-dns_cloudflare_api_token = sguj4KHrOUCz9tjrZfVr3XfryTQPZP2rrKn8pDKu
+echo "dns_cloudflare_api_token = sguj4KHrOUCz9tjrZfVr3XfryTQPZP2rrKn8pDKu"
 chmod 600 /etc/nginx/ssl/cloudflare.ini
 
 certbot certonly  --dns-cloudflare --dns-cloudflare-credentials /etc/nginx/ssl/cloudflare.ini -d '*.pietrohome.it' -d pietrohome.it --agree-tos --no-eff-email --email p.gano96@gmail.com
