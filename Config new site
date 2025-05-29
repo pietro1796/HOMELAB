@@ -1,0 +1,8 @@
+1- nano /etc/nginx/sites-available/pve.conf
+2- incollare il contenuto in base se è http/https
+    - HTTPS: https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/NGINX/EXAMPLE/https-proxy
+    - HTTP:  https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/NGINX/EXAMPLE/http-proxy
+3- ln -s /etc/nginx/sites-available/pve.conf /etc/nginx/sites-enabled/pve.conf
+4- nginx -t
+5- service nginx reload
+
