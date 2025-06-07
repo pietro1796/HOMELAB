@@ -3,21 +3,31 @@
 #  reset_admin_password: true
 
 mqtt:
-  enabled: false
+  enabled: true
+  host: 192.168.179.12
+  port: 1883
+  user: mqtt_user
+  password: pietro96X
+  topic_prefix: frigate
+
+tls:
+  enabled: False
 
 database:
   path: /db/frigate.db
 
-ffmpeg:
-  hwaccel_args: preset-vaapi
-
 birdseye:
   enabled: false
+
+semantic_search:
+  enabled: true
+  reindex: false
+  model_size: small
 
 detectors:
   openvino:
     type: openvino
-    device: CPU
+    device: GPU
     model:
       path: /openvino-model/ssdlite_mobilenet_v2.xml
 
@@ -30,14 +40,28 @@ model:
   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
 snapshots:
-  enabled: false
+  enabled: False
 
 record:
+  enabled: True
   sync_recordings: True
-  enabled: true
   retain:
-    days: 1
-    mode: motion
+    days: 3
+    mode: all
+
+  alerts:
+    pre_capture: 2
+    post_capture: 2
+    retain:
+      days: 30
+      mode: motion
+
+  detections:
+    pre_capture: 2
+    post_capture: 2
+    retain:
+      days: 030
+      mode: motion
 
 version: 0.15-1
 
@@ -46,14 +70,14 @@ version: 0.15-1
 objects:
   track:
     - person
-    - door
-    - car
-    - truck
-    - bicycle
-    - motorcycle
-    - bus
-    - dog
-    - cat
+#    - door
+#    - car
+#    - truck
+#    - bicycle
+#    - motorcycle
+#    - bus
+#    - dog
+#    - cat
 
 audio:
   enabled: false
@@ -73,6 +97,17 @@ audio:
     - dog_bark
     - cat_meow
 
+############# GO2RTC #############
+go2rtc:
+  streams:
+
+### STUDIO ###
+    Studio_Main:
+      - rtsp://rstpadm:pietro96@192.168.100.84:554/stream1
+      - "ffmpeg:Studio_Main#audio=aac"
+    Studio_Sub:
+      - rtsp://rstpadm:pietro96@192.168.100.84:554/stream2
+
 ############# CAMERE #############
 cameras:
 
@@ -85,17 +120,22 @@ cameras:
       password: pietro96
     ffmpeg:
       inputs:
-        - path: rtsp://rstpadm:pietro96@192.168.100.84:554/stream1
+        - path: rtsp://127.0.0.1:8554/Studio_Main
+          input_args: preset-rtsp-restream
           roles:
             - record
             - audio
-        - path: rtsp://rstpadm:pietro96@192.168.100.84:554/stream2
+        - path: rtsp://127.0.0.1:8554/Studio_Sub
+          input_args: preset-rtsp-restream
           roles:
             - detect
+      output_args:
+        record: preset-record-generic-audio-copy
+    live:
+        stream_name: Studio_Sub
+
     detect:
       enabled: true
-      width: 640
-      height: 360
       fps: 1
     motion:
       mask: 0.357,0.055,0.357,0,0.001,0,0,0.054

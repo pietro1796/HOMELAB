@@ -1,14 +1,12 @@
-# pct set 107 -mp0 volume=/hdd-pool/hdd-data,mp=/mnt/hdd-data
-
-
 arch: amd64
 cores: 2
-dev0: /dev/dri/card0
 dev1: /dev/dri/renderD128
-hostname: frigate
-memory: 2048
-mp0: /hdd-pool/hdd-data,mp=/mnt/hdd-data
-net0: name=eth0,bridge=vmbr0,gw=192.168.100.1,hwaddr=BC:24:11:61:A8:6E,ip=192.168.100.2/24,tag=100,type=veth
+features: nesting=1
+hostname: docker01
+memory: 4096
+net0: name=eth0,bridge=vmbr0,gw=192.168.179.1,hwaddr=BC:24:11:FA:0F:E5,ip=192.168.179.13/24,tag=179,type=veth
+onboot: 1
 ostype: debian
-rootfs: ssd-pve-data:subvol-107-disk-0,size=10G
+rootfs: ssd-pve-data:subvol-107-disk-1,size=20G
 swap: 512
+lxc.mount.entry: /hdd-pool/hdd-services-data mnt/hdd-services-data none rw,bind,create=dir 0 0

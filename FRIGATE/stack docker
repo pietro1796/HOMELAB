@@ -5,22 +5,24 @@ services:
     container_name: frigate
     restart: unless-stopped
     image: ghcr.io/blakeblackshear/frigate:stable
+    cap_add:
+      - CAP_PERFMON
     privileged: True
     shm_size: "256mb"
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
-      - /dev/dri/card0:/dev/dri/card0
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /home/frigate/db:/db
-      - /homefrigate/config.yml:/config/config.yml
-      - /mnt/hdd-data/CCTV/frigate/media:/media/frigate
+      - /home/frigate/config.yml:/config/config.yml
+      - /mnt/hdd-services-data/CCTV/frigate/media:/media/frigate
       - type: tmpfs
         target: /tmp/cache
         tmpfs:
           size: 1000000000
     environment:
       - XDG_RUNTIME_DIR=/tmp/runtime-0
+      - LIBVA_DRIVER_NAME=i965
     ports:
       - "8971:8971"
       - "5000:5000"

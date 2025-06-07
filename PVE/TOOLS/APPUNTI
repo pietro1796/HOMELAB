@@ -12,3 +12,11 @@ https://gist.github.com/mrpeardotnet/6bdc4b504f43ce57fa7eaee96d376edf
 
 #NOTIFICHE TELEGRAM
 https://forum.proxmox.com/threads/telegram-webhook-notifications.161217/
+
+nano /usr/share/pve-manager/templates/default/vzdump-body.txt.hbs
+cancellare tutto e mettere:
+{{error}}
+=======
+Total running time: {{duration total-time}}
+Total size: {{human-bytes total-size}}
+
