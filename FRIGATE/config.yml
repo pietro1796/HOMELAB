@@ -103,10 +103,38 @@ go2rtc:
 
 ### STUDIO ###
     Studio_Main:
-      - rtsp://rstpadm:pietro96@192.168.100.84:554/stream1
+      - rtsp://rstpadm:pietro96@192.168.100.90:554/stream1
       - "ffmpeg:Studio_Main#audio=aac"
     Studio_Sub:
-      - rtsp://rstpadm:pietro96@192.168.100.84:554/stream2
+      - rtsp://rstpadm:pietro96@192.168.100.90:554/stream2
+
+### CAM1 ###
+    CAM1_Main:
+      - rtsp://rstpadm:pietro96X@192.168.100.91/Streaming/channels/101
+      - "ffmpeg:Cancello_Main#audio=aac"
+    CAM1_Sub:
+      - rtsp://rstpadm:pietro96X@192.168.100.91/Streaming/channels/102
+
+### CAM2 ###
+    CAM2_Main:
+      - rtsp://rstpadm:pietro96X@192.168.100.92/Streaming/channels/101
+      - "ffmpeg:Cancello_Main#audio=aac"
+    CAM2_Sub:
+      - rtsp://rstpadm:pietro96X@192.168.100.92/Streaming/channels/102
+
+### CAM3 ###
+    CAM3_Main:
+      - rtsp://rstpadm:pietro96X@192.168.100.93/Streaming/channels/101
+      - "ffmpeg:Cancello_Main#audio=aac"
+    CAM3_Sub:
+      - rtsp://rstpadm:pietro96X@192.168.100.93/Streaming/channels/102
+
+### CAM4 ###
+    CAM4_Main:
+      - rtsp://rstpadm:pietro96X@192.168.100.94/Streaming/channels/101
+      - "ffmpeg:Cancello_Main#audio=aac"
+    CAM4_Sub:
+      - rtsp://rstpadm:pietro96X@192.168.100.94/Streaming/channels/102
 
 ############# CAMERE #############
 cameras:
@@ -114,7 +142,7 @@ cameras:
 ### STUDIO ###
   Studio:
     onvif:
-      host: 192.168.100.84
+      host: 192.168.100.90
       port: 2020
       user: rstpadm
       password: pietro96
@@ -133,9 +161,91 @@ cameras:
         record: preset-record-generic-audio-copy
     live:
         stream_name: Studio_Sub
-
     detect:
       enabled: true
       fps: 1
-    motion:
-      mask: 0.357,0.055,0.357,0,0.001,0,0,0.054
+
+
+### CAM1 ###
+  CAM1:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/CAM1_Main
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+            - audio
+        - path: rtsp://127.0.0.1:8554/CAM1_Sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+      output_args:
+        record: preset-record-generic-audio-copy
+    live:
+        stream_name: CAM1_Sub
+    detect:
+      enabled: true
+      fps: 1
+
+### CAM2 ###
+  CAM2:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/CAM2_Main
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+            - audio
+        - path: rtsp://127.0.0.1:8554/CAM2_Sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+      output_args:
+        record: preset-record-generic-audio-copy
+    live:
+        stream_name: CAM2_Sub
+    detect:
+      enabled: true
+      fps: 1
+	  
+### CAM3 ###
+  CAM3:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/CAM3_Main
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+            - audio
+        - path: rtsp://127.0.0.1:8554/CAM3_Sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+      output_args:
+        record: preset-record-generic-audio-copy
+    live:
+        stream_name: CAM3_Sub
+    detect:
+      enabled: true
+      fps: 1
+
+### CAM4 ###
+  CAM4:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/CAM4_Main
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+            - audio
+        - path: rtsp://127.0.0.1:8554/CAM4_Sub
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+      output_args:
+        record: preset-record-generic-audio-copy
+    live:
+        stream_name: CAM4_Sub
+    detect:
+      enabled: true
+      fps: 1
