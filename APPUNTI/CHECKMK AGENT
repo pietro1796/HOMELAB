@@ -3,3 +3,14 @@ dpkg -i check-mk-agent_*.deb
 cmk-agent-ctl register --server 192.168.179.11 --site monitoring --user agent_registration --hostname $(hostname)
   y
   pietro96X
+
+
+
+PER DOCKER:
+
+wget https://checkmk.pietrohome.it/monitoring/check_mk/agents/plugins/mk_docker.py
+install -m 0755 mk_docker.py /usr/lib/check_mk_agent/plugins
+apt install python3-pip -y
+pip3 install docker --break-system-packages
+cd /etc/check_mk
+wget https://checkmk.pietrohome.it/monitoring/check_mk/agents/cfg_examples/docker.cfg
