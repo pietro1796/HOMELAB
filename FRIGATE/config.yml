@@ -11,7 +11,7 @@ mqtt:
   topic_prefix: frigate
 
 tls:
-  enabled: False
+  enabled: false
 
 database:
   path: /db/frigate.db
@@ -40,27 +40,27 @@ model:
   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
 snapshots:
-  enabled: False
+  enabled: false
 
 record:
-  enabled: True
-  sync_recordings: True
+  enabled: true
+  sync_recordings: true
   retain:
-    days: 3
+    days: 0
     mode: all
 
   alerts:
     pre_capture: 2
     post_capture: 2
     retain:
-      days: 30
+      days: 0
       mode: motion
 
   detections:
     pre_capture: 2
     post_capture: 2
     retain:
-      days: 030
+      days: 0
       mode: motion
 
 version: 0.15-1
@@ -97,50 +97,54 @@ audio:
     - dog_bark
     - cat_meow
 
+timestamp_style:
+  position: tl
+  format: '%m/%d/%Y %H:%M:%S'
+
+  
 ############# GO2RTC #############
 go2rtc:
   streams:
 
 ### STUDIO ###
     Studio_Main:
-      - rtsp://rstpadm:pietro96@192.168.100.90:554/stream1
-      - "ffmpeg:Studio_Main#audio=aac"
-    Studio_Sub:
-      - rtsp://rstpadm:pietro96@192.168.100.90:554/stream2
+      - rtsp://rstpadm:pietro96@192.168.100.90/stream1
+      - ffmpeg:Studio_Main#audio=aac
 
 ### CAM1 ###
     CAM1_Main:
-      - rtsp://rstpadm:pietro96X@192.168.100.91/Streaming/channels/101
-      - "ffmpeg:Cancello_Main#audio=aac"
+      - rtsp://admin:pietro96X@192.168.100.91/Streaming/channels/101
+      - ffmpeg:CAM1_Main#audio=aac
     CAM1_Sub:
-      - rtsp://rstpadm:pietro96X@192.168.100.91/Streaming/channels/102
+      - rtsp://admin:pietro96X@192.168.100.91/Streaming/channels/102
 
 ### CAM2 ###
     CAM2_Main:
-      - rtsp://rstpadm:pietro96X@192.168.100.92/Streaming/channels/101
-      - "ffmpeg:Cancello_Main#audio=aac"
+      - rtsp://admin:pietro96X@192.168.100.92/Streaming/channels/101
+      - ffmpeg:CAM2_Main#audio=aac
     CAM2_Sub:
-      - rtsp://rstpadm:pietro96X@192.168.100.92/Streaming/channels/102
+      - rtsp://admin:pietro96X@192.168.100.92/Streaming/channels/102
 
 ### CAM3 ###
     CAM3_Main:
-      - rtsp://rstpadm:pietro96X@192.168.100.93/Streaming/channels/101
-      - "ffmpeg:Cancello_Main#audio=aac"
+      - rtsp://admin:pietro96X@192.168.100.93/Streaming/channels/101
+      - ffmpeg:CAM3_Main#audio=aac
     CAM3_Sub:
-      - rtsp://rstpadm:pietro96X@192.168.100.93/Streaming/channels/102
+      - rtsp://admin:pietro96X@192.168.100.93/Streaming/channels/102
 
 ### CAM4 ###
     CAM4_Main:
-      - rtsp://rstpadm:pietro96X@192.168.100.94/Streaming/channels/101
-      - "ffmpeg:Cancello_Main#audio=aac"
+      - rtsp://admin:pietro96X@192.168.100.94/Streaming/channels/101
+      - ffmpeg:CAM4_Main#audio=aac
     CAM4_Sub:
-      - rtsp://rstpadm:pietro96X@192.168.100.94/Streaming/channels/102
+      - rtsp://admin:pietro96X@192.168.100.94/Streaming/channels/102
 
 ############# CAMERE #############
 cameras:
 
 ### STUDIO ###
   Studio:
+    enabled: true
     onvif:
       host: 192.168.100.90
       port: 2020
@@ -153,21 +157,18 @@ cameras:
           roles:
             - record
             - audio
-        - path: rtsp://127.0.0.1:8554/Studio_Sub
-          input_args: preset-rtsp-restream
-          roles:
             - detect
       output_args:
         record: preset-record-generic-audio-copy
     live:
-        stream_name: Studio_Sub
+      stream_name: Studio_Main
     detect:
       enabled: true
       fps: 1
 
-
 ### CAM1 ###
   CAM1:
+    enabled: true
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/CAM1_Main
@@ -182,13 +183,14 @@ cameras:
       output_args:
         record: preset-record-generic-audio-copy
     live:
-        stream_name: CAM1_Sub
+      stream_name: CAM1_Main
     detect:
       enabled: true
       fps: 1
 
 ### CAM2 ###
   CAM2:
+    enabled: true
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/CAM2_Main
@@ -203,13 +205,14 @@ cameras:
       output_args:
         record: preset-record-generic-audio-copy
     live:
-        stream_name: CAM2_Sub
+      stream_name: CAM2_Main
     detect:
       enabled: true
       fps: 1
-	  
+
 ### CAM3 ###
   CAM3:
+    enabled: true
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/CAM3_Main
@@ -224,13 +227,14 @@ cameras:
       output_args:
         record: preset-record-generic-audio-copy
     live:
-        stream_name: CAM3_Sub
+      stream_name: CAM3_Main
     detect:
       enabled: true
       fps: 1
 
 ### CAM4 ###
   CAM4:
+    enabled: true
     ffmpeg:
       inputs:
         - path: rtsp://127.0.0.1:8554/CAM4_Main
@@ -245,7 +249,7 @@ cameras:
       output_args:
         record: preset-record-generic-audio-copy
     live:
-        stream_name: CAM4_Sub
+      stream_name: CAM4_Main
     detect:
       enabled: true
       fps: 1
