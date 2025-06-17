@@ -1,0 +1,21 @@
+#Installare Samba e pacchetti
+apt update
+apt install samba smbclient cifs-utils  samba-common-bin wsdd 
+systemctl status smbd
+systemctl status nmbd
+
+#Modificare il file samba
+cp /etc/samba/smb.conf /etc/samba/smb.conf.backup
+nano /etc/samba/smb.conf
+mettere il contenuto desiderato (
+
+
+#Dare diritti alla directory
+chgrp -R sambashare /mnt/hdd-nas-data/data
+chmod 770 /mnt/hdd-nas-data/data
+
+#Creare utente Samba
+useradd -M -s /sbin/nologin pietro
+usermod -aG sambashare pietro
+smbpasswd -a pietro
+smbpasswd -e pietro
