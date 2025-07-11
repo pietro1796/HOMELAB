@@ -1,0 +1,36 @@
+services:
+  scrypted:
+    container_name: scrypted
+    image: ghcr.io/koush/scrypted
+    environment:
+      - SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION=Bearer ${WATCHTOWER_HTTP_API_TOKEN:-env_missing_fallback}
+      - SCRYPTED_WEBHOOK_UPDATE=http://localhost:10444/v1/update
+    volumes:
+      - /home/scrypted/volume:/server/volume
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    restart: unless-stopped
+    network_mode: host
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+    labels:
+      - "com.centurylinklabs.watchtower.scope=scrypted"
+
+  watchtower:
+    container_name: scrypted-watchtower
+    image: containrrr/watchtower
+    environment:
+      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN:-env_missing_fallback}
+      - WATCHTOWER_HTTP_API_UPDATE=true
+      - WATCHTOWER_SCOPE=scrypted
+      - WATCHTOWER_HTTP_API_PERIODIC_POLLS=${WATCHTOWER_HTTP_API_PERIODIC_POLLS:-true}
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 10444:8080
+    labels:
+      - "com.centurylinklabs.watchtower.scope=scrypted"
