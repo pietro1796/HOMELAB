@@ -6,8 +6,9 @@ systemctl status nmbd
 
 #Modificare il file samba
 cp /etc/samba/smb.conf /etc/samba/smb.conf.backup
-nano /etc/samba/smb.conf
-mettere il contenuto desiderato (https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/APPUNTI/SAMBA/smb.conf)
+mv /etc/samba/smb.conf
+wget https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/APPUNTI/SAMBA/smb.conf -P /etc/smb.conf
+
 
 
 #Dare diritti alla directory
