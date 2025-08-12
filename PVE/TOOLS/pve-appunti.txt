@@ -13,6 +13,12 @@ https://gist.github.com/mrpeardotnet/6bdc4b504f43ce57fa7eaee96d376edf
 #NOTIFICHE TELEGRAM
 https://forum.proxmox.com/threads/telegram-webhook-notifications.161217/
 
+webhook: Telegram
+        comment Send Telegram to ALERT HOME
+        method post
+        url https://api.telegram.org/bot{{ secrets.BOT_TOKEN }}/sendMessage?chat_id={{ secrets.CHAT_ID }}&text=Message:{{ url-encode message }}
+
+
 nano /usr/share/pve-manager/templates/default/vzdump-body.txt.hbs
 cancellare tutto e mettere:
 {{error}}
