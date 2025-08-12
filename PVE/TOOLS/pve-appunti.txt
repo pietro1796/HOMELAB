@@ -20,3 +20,6 @@ cancellare tutto e mettere:
 Total running time: {{duration total-time}}
 Total size: {{human-bytes total-size}}
 
+#CONFIGURAZIONE SWAPPINESS
+echo "vm.swappiness = 10" >> /etc/sysctl.d/swappiness.conf
+
