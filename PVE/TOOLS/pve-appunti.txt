@@ -16,7 +16,8 @@ https://forum.proxmox.com/threads/telegram-webhook-notifications.161217/
 webhook: Telegram
         comment Send Telegram to ALERT HOME
         method post
-        url https://api.telegram.org/bot{{ secrets.BOT_TOKEN }}/sendMessage?chat_id={{ secrets.CHAT_ID }}&text=Message:{{ url-encode message }}
+        url https://api.telegram.org/bot{{ secrets.BOT_TOKEN }}/sendMessage?chat_id={{ secrets.CHAT_ID }}&text=Message:{{ url-encode "⚠️PBS Notification⚠️" }}%0A%0ATitle:+{{ url-encode title }}%0ASeverity:+{{ url-encode severity }}%0AMessage:+{{ url-encode message }}
+
 
 
 nano /usr/share/pve-manager/templates/default/vzdump-body.txt.hbs
