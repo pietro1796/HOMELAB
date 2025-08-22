@@ -1,4 +1,4 @@
-#bash -c "$(curl -fsSL https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/debian.sh)"
+#bash -c "$(curl -fsSL https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/APPUNTI/DOCKER/update_portainer.sh)"
 docker stop portainer
 docker rm portainer
 docker pull portainer/portainer-ce:lts
