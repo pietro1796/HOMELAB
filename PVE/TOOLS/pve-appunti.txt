@@ -5,7 +5,7 @@
 - installazione aget
 	wget http://192.168.179.11/monitoring/check_mk/agents/check-mk-agent_2.4.0p2-1_all.deb
 	dpkg -i check-mk-agent_2.4.0p2-1_all.deb
-	cmk-agent-ctl register --hostname pve.pietrohome.it --server 192.168.179.11 --site monitoring --user agent_registration --password 'pietro96X'
+	cmk-agent-ctl register --hostname pve.stacknet.it --server 192.168.179.11 --site monitoring --user agent_registration --password 'pietro96X'
 
 #SALVATAGGIO FILE IMPORTANTI
 https://gist.github.com/mrpeardotnet/6bdc4b504f43ce57fa7eaee96d376edf
@@ -13,10 +13,20 @@ https://gist.github.com/mrpeardotnet/6bdc4b504f43ce57fa7eaee96d376edf
 #NOTIFICHE TELEGRAM
 https://forum.proxmox.com/threads/telegram-webhook-notifications.161217/
 
+webhook: Telegram
+        comment Send Telegram to ALERT HOME
+        method post
+        url https://api.telegram.org/bot{{ secrets.BOT_TOKEN }}/sendMessage?chat_id={{ secrets.CHAT_ID }}&text=Message:{{ url-encode "⚠️PBS Notification⚠️" }}%0A%0ATitle:+{{ url-encode title }}%0ASeverity:+{{ url-encode severity }}%0AMessage:+{{ url-encode message }}
+
+
+
 nano /usr/share/pve-manager/templates/default/vzdump-body.txt.hbs
 cancellare tutto e mettere:
 {{error}}
 =======
 Total running time: {{duration total-time}}
 Total size: {{human-bytes total-size}}
+
+#CONFIGURAZIONE SWAPPINESS
+echo "vm.swappiness = 10" >> /etc/sysctl.d/swappiness.conf
 

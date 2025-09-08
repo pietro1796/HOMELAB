@@ -9,7 +9,7 @@ echo "Installati pacchetti"
 timedatectl set-timezone Europe/Rome
 echo "Settato TimeZone"
 # Set Swappiness
-echo "vm.swappiness = 10" >> /etc/sysctl.conf
+echo "vm.swappiness = 10" >> /etc/sysctl.d/swappiness.conf
 echo "Settata Swappiness"
 #Set SHH Login
 sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
