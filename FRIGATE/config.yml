@@ -4,7 +4,7 @@
 
 mqtt:
   enabled: true
-  host: 192.168.179.12
+  host: 192.168.100.99
   port: 1883
   user: mqtt_user
   password: pietro96X
@@ -18,6 +18,10 @@ database:
 
 birdseye:
   enabled: false
+
+snapshots:
+  enabled: true
+  clean_copy: true
 
 semantic_search:
   enabled: true
@@ -39,38 +43,38 @@ model:
   path: /openvino-model/ssdlite_mobilenet_v2.xml
   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
 
-snapshots:
-  enabled: false
+detect:
+  enabled: true
 
 record:
   enabled: true
   sync_recordings: true
   retain:
-    days: 0
+    days: 3
     mode: all
 
   alerts:
     pre_capture: 2
     post_capture: 2
     retain:
-      days: 0
+      days: 3
       mode: motion
 
   detections:
     pre_capture: 2
     post_capture: 2
     retain:
-      days: 0
+      days: 30
       mode: motion
 
-version: 0.15-1
+version: 0.16-0
 
 ############# DETECTIONS #############
 
 objects:
   track:
     - person
-
+    
   ############# GO2RTC with WEBRTC #############
 go2rtc:
   webrtc:
@@ -81,18 +85,13 @@ go2rtc:
 
 ### CAMPANELLO ###
     Campanello_Main:
-      - ffmpeg:https://192.168.100.83/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=pietro96X#audio=copy#video=copy#audio=opus
       - rtsp://admin:pietro96X@192.168.100.83/Preview_01_main
+      - ffmpeg:camera.Campanello_Main#audio=opus#audio=copy
     Campanello_Sub:
       - rtsp://admin:pietro96X@192.168.100.83/Preview_01_sub
     Campanello_All:
-      - ffmpeg:https://192.168.100.83/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=admin&password=pietro96X#audio=copy#video=copy#audio=opus
       - rtsp://admin:pietro96X@192.168.100.83/Preview_01_sub
-
-### STUDIO ###
-    Studio_Main:
-      - rtsp://rstpadm:pietro96@192.168.100.90/stream1
-      - ffmpeg:Studio_Main#audio=aac
+      - ffmpeg:camera.Campanello_All#audio=opus#audio=copy
 
 ### CAM1 ###
     CAM1_Main:
@@ -100,27 +99,6 @@ go2rtc:
       - ffmpeg:CAM1_Main#audio=aac
     CAM1_Sub:
       - rtsp://admin:pietro96X@192.168.100.91/Streaming/channels/102
-
-### CAM2 ###
-    CAM2_Main:
-      - rtsp://admin:pietro96X@192.168.100.92/Streaming/channels/101
-      - ffmpeg:CAM2_Main#audio=aac
-    CAM2_Sub:
-      - rtsp://admin:pietro96X@192.168.100.92/Streaming/channels/102
-
-### CAM3 ###
-    CAM3_Main:
-      - rtsp://admin:pietro96X@192.168.100.93/Streaming/channels/101
-      - ffmpeg:CAM3_Main#audio=aac
-    CAM3_Sub:
-      - rtsp://admin:pietro96X@192.168.100.93/Streaming/channels/102
-
-### CAM4 ###
-    CAM4_Main:
-      - rtsp://admin:pietro96X@192.168.100.94/Streaming/channels/101
-      - ffmpeg:CAM4_Main#audio=aac
-    CAM4_Sub:
-      - rtsp://admin:pietro96X@192.168.100.94/Streaming/channels/102
 
 ############# CAMERE #############
 cameras:
@@ -140,31 +118,6 @@ cameras:
             - detect
       output_args:
         record: preset-record-generic-audio-copy
-    live:
-      stream_name: Campanello_Main
-    detect:
-      enabled: true
-      fps: 1
-
-### STUDIO ###
-  Studio:
-    enabled: true
-    onvif:
-      host: 192.168.100.90
-      port: 2020
-      user: rstpadm
-      password: pietro96
-    ffmpeg:
-      inputs:
-        - path: rtsp://127.0.0.1:8554/Studio_Main
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-            - detect
-      output_args:
-        record: preset-record-generic-audio-copy
-    live:
-      stream_name: Studio_Main
     detect:
       enabled: true
       fps: 1
@@ -184,71 +137,15 @@ cameras:
             - detect
       output_args:
         record: preset-record-generic-audio-copy
-    live:
-      stream_name: CAM1_Main
     detect:
       enabled: true
       fps: 1
-
-### CAM2 ###
-  CAM2:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: rtsp://127.0.0.1:8554/CAM2_Main
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-        - path: rtsp://127.0.0.1:8554/CAM2_Sub
-          input_args: preset-rtsp-restream
-          roles:
-            - detect
-      output_args:
-        record: preset-record-generic-audio-copy
-    live:
-      stream_name: CAM2_Main
-    detect:
-      enabled: true
-      fps: 1
-
-### CAM3 ###
-  CAM3:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: rtsp://127.0.0.1:8554/CAM3_Main
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-        - path: rtsp://127.0.0.1:8554/CAM3_Sub
-          input_args: preset-rtsp-restream
-          roles:
-            - detect
-      output_args:
-        record: preset-record-generic-audio-copy
-    live:
-      stream_name: CAM3_Main
-    detect:
-      enabled: true
-      fps: 1
-
-### CAM4 ###
-  CAM4:
-    enabled: true
-    ffmpeg:
-      inputs:
-        - path: rtsp://127.0.0.1:8554/CAM4_Main
-          input_args: preset-rtsp-restream
-          roles:
-            - record
-        - path: rtsp://127.0.0.1:8554/CAM4_Sub
-          input_args: preset-rtsp-restream
-          roles:
-            - detect
-      output_args:
-        record: preset-record-generic-audio-copy
-    live:
-      stream_name: CAM4_Main
-    detect:
-      enabled: true
-      fps: 1
+    zones:
+      CAM1-Zona_Cancello:
+        coordinates: 
+          0.401,0.446,0.492,0.454,0.602,0.572,0.6,0.603,0.933,0.996,0.376,0.999,0.444,0.956,0.425,0.697,0.353,0.455
+        loitering_time: 0
+    motion: {}
+    objects:
+      mask: 
+        0.492,0.454,0.956,0.415,0.956,0.26,0.997,0.269,1,1,0.93,0.991,0.599,0.606,0.6,0.571

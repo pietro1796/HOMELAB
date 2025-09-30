@@ -23,6 +23,7 @@ services:
     environment:
       - XDG_RUNTIME_DIR=/tmp/runtime-0
       - LIBVA_DRIVER_NAME=i965
+      - PLUS_API_KEY=7a8491d5-b51e-4d14-9d1c-71519c638e32:61566afa3a9e899099074211db5ee0470e265898
     ports:
       - "8971:8971"
       - "5000:5000"
