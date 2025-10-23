@@ -6,8 +6,10 @@ systemctl status nmbd
 
 #Modificare il file samba
 cp /etc/samba/smb.conf /etc/samba/smb.conf.backup
-mv /etc/samba/smb.conf
-wget https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/APPUNTI/SAMBA/smb.conf -P /etc/smb.conf
+cd /etc/samba
+curl -fsSL https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/APPUNTI/SAMBA/smb.conf >> smb.conf
+
+
 
 
 
