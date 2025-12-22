@@ -1,0 +1,3 @@
+## Configurazione delle condivisioni Samba su host Linux per client Windows 11 24H2 ##
+
+` Set-SmbClientConfiguration -RequireSecuritySignature $false` 
