@@ -1,4 +1,5 @@
-apt install nginx certbot python3-certbot-nginx
+apt install nginx certbot python3-certbot-nginx libnginx-mod-stream
+
 https://github.com/pietro1796/HOMELAB/blob/main/NGINX/Config%20new%20site
 
 nano /etc/nginx/ssl/cloudflare.ini
