@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  guacd:
+    image: guacamole/guacd:latest
+    container_name: guacd
+    restart: unless-stopped
+    networks:
+      - guac_net
+
+  guac-db:
+    image: mysql:8.0
+    container_name: guac-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: guac_root_pass
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_USER: guac_user
+      MYSQL_PASSWORD: guac_user_pass
+    volumes:
+      - /home/guacamole/mysql:/var/lib/mysql
+    networks:
+      - guac_net
+
+  guacamole:
+    image: guacamole/guacamole:latest
+    container_name: guacamole
+    restart: unless-stopped
+    depends_on:
+      - guacd
+      - guac-db
+    environment:
+      GUACD_HOSTNAME: guacd
+      MYSQL_HOSTNAME: guac-db
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_USER: guac_user
+      MYSQL_PASSWORD: guac_user_pass
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/guacamole/drive:/drive
+      - /home/guacamole/record:/record
+    networks:
+      - guac_net
+
+networks:
+  guac_net:
+    driver: bridge
