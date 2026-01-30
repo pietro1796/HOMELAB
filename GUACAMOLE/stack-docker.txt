@@ -4,6 +4,8 @@ services:
   guacd:
     image: guacamole/guacd:latest
     container_name: guacd
+    mem_limit: 256m
+    memswap_limit: 256m
     restart: unless-stopped
     networks:
       - guac_net
@@ -11,6 +13,8 @@ services:
   guac-db:
     image: mysql:8.0
     container_name: guac-mysql
+    mem_limit: 512m
+    memswap_limit: 512m
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: guac_root_pass
@@ -19,12 +23,16 @@ services:
       MYSQL_PASSWORD: guac_user_pass
     volumes:
       - /home/guacamole/mysql:/var/lib/mysql
+    ports:
+      - "3307:3306"
     networks:
       - guac_net
 
   guacamole:
     image: guacamole/guacamole:latest
     container_name: guacamole
+    mem_limit: 512m
+    memswap_limit: 512m
     restart: unless-stopped
     depends_on:
       - guacd
@@ -35,6 +43,8 @@ services:
       MYSQL_DATABASE: guacamole_db
       MYSQL_USER: guac_user
       MYSQL_PASSWORD: guac_user_pass
+      REMOTE_IP_VALVE_ENABLED: true
+
     ports:
       - "8080:8080"
     volumes:
