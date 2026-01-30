@@ -1,0 +1,15 @@
+## CREAZIONE DIRECTORY ##
+mkdir /home/guacamole
+mkdir /home/guacamole/backup
+mkdir /home/guacamole/drive
+mkdir /home/guacamole/mysql
+mkdir /home/guacamole/record
+
+# CURL DEGLI SCRIPT ##
+curl https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/GUACAMOLE/backup_db.sh
+https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/GUACAMOLE/initial_script_db.sh
+
+## SISTEMAZIONE DIRITTI
+chmod 777 -R /home/guacamole
+chmod +X /home/guacamole/backup_db.sh
+chmod +X /home/guacamole/initial_script_db.sh
