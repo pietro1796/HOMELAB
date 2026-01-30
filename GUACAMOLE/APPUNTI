@@ -13,3 +13,9 @@ https://raw.githubusercontent.com/pietro1796/HOMELAB/refs/heads/main/GUACAMOLE/i
 chmod 777 -R /home/guacamole
 chmod +X /home/guacamole/backup_db.sh
 chmod +X /home/guacamole/initial_script_db.sh
+
+## INIZIALIZZAZIONE ##
+1- creare stack docker
+2- una volta avviato, lanciare lo script initial_script_db.sh
+3- entrare http://IP:8080/guacamole
+4- guacadmin / guacadmin
