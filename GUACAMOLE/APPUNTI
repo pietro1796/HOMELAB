@@ -1,6 +1,6 @@
 ## CREAZIONE DIRECTORY ##
 mkdir /home/guacamole
-mkdir /home/guacamole/backup
+mkdir /home/guacamole/backups
 mkdir /home/guacamole/drive
 mkdir /home/guacamole/mysql
 mkdir /home/guacamole/record
