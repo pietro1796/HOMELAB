@@ -1,0 +1,16 @@
+## CREARE una NETWORK ##
+docker network create docker-service
+
+## COLLEGARE container ##
+
+ad ogni container, agigugnere:
+
+    networks:
+      - docker-service
+
+
+allo stack, aggiungere: 
+
+networks:
+  docker-service:
+    driver: bridge
