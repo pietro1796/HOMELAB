@@ -2,11 +2,8 @@
 
 echo "=== Guacamole DB Initialization ==="
 
-# Nomi container (come nello stack)
 GUAC_CONTAINER="guacamole"
 DB_CONTAINER="guac-mysql"
-
-# Percorso file SQL sull'host
 SQL_FILE="/home/guacamole/initdb.sql"
 
 echo "-> Genero schema database da container guacamole..."
@@ -17,11 +14,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "-> Copio schema nel container MySQL..."
-docker cp $SQL_FILE $DB_CONTAINER:/initdb.sql
-
 echo "-> Importo schema nel database guacamole_db..."
-docker exec -i $DB_CONTAINER mysql -u root -pguac_root_pass guacamole_db < /initdb.sql
+cat $SQL_FILE | docker exec -i $DB_CONTAINER mysql -u root -pguac_root_pass guacamole_db
 
 if [ $? -ne 0 ]; then
-  echo
+  echo "❌ Errore import database"
+  exit 1
+fi
+
+echo "✅ Database Guacamole inizializzato correttamente!"
