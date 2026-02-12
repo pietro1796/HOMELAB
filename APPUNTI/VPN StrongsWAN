@@ -1,0 +1,36 @@
+apt install strongswan libcharon-extra-plugins -y
+systemctl enable strongswan
+systemctl start strongswan
+systemctl status strongswan
+
+--
+nano /etc/ipsec.conf
+
+# ipsec.conf - strongSwan IPsec configuration file
+
+
+config setup
+
+conn Cabel-Test
+  # Phase-1 details #
+  auto=start
+  keyexchange=ikev2
+  ike=aes256-sha256-modp2048!
+  left=&any
+  leftid=176.107.155.11
+  right=93.92.184.243
+  authby=secret
+  # Phase-2 details #
+  esp=aes256-sha256-modp2048!
+  leftsubnet=192.168.179.0/24
+  rightsubnet=100.65.0.0/16,100.66.0.0/16
+--
+nano /etc/ipsec.secrets
+
+176.107.155.11 93.92.184.243 : PSK "gFQSHpmkx!!"
+--
+
+
+ipsec rereadsecrets
+ipsec restart
+ipsec status all
