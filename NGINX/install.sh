@@ -20,6 +20,6 @@ ingress:
 chmod 600 /etc/nginx/ssl/cloudflare.ini
 cloudflared service install
 
-certbot certonly  --dns-cloudflare --dns-cloudflare-credentials /etc/nginx/ssl/cloudflare.ini -d '*.pietrohome.it' -d pietrohome.it --agree-tos --no-eff-email --email p.gano96@gmail.com
-ln -s /etc/letsencrypt/live/pietrohome.it/fullchain.pem /etc/nginx/ssl/pietrohome.pem
-ln -s /etc/letsencrypt/live/pietrohome.it/privkey.pem /etc/nginx/ssl/pietrohome.key
+certbot certonly  --dns-cloudflare --dns-cloudflare-credentials /etc/nginx/ssl/cloudflare.ini -d '*.stacknet.it' -d stacknet.it --agree-tos --no-eff-email --email p.gano96@gmail.com
+ln -s /etc/letsencrypt/live/stacknet.it/fullchain.pem /etc/nginx/ssl/stacknet.pem
+ln -s /etc/letsencrypt/live/stacknet.it/privkey.pem /etc/nginx/ssl/stacknet.key
