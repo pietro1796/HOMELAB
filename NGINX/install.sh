@@ -1,8 +1,9 @@
-apt install nginx certbot python3-certbot-nginx libnginx-mod-stream
+apt install nginx certbot python3-certbot-nginx libnginx-mod-stream python3-certbot-dns-cloudflare
 
 https://github.com/pietro1796/HOMELAB/blob/main/NGINX/Config%20new%20site
 
-nano /etc/nginx/ssl/cloudflare.ini
+nano /etc/nginx/ssl/cloudflare.ini ( METTERE TOKEN API)
+dns_cloudflare_api_token = XXXXX
 
 --
 tunnel: a7ce74cf-d70a-48ab-a65f-bbeb7c52a0eb
