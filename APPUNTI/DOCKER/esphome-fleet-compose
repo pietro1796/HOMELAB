@@ -1,0 +1,43 @@
+services:
+  esphome-fleet-server:
+    mem_limit: 1024m
+    memswap_limit: 1024m
+    cpus: 3.0
+    image: ghcr.io/weirded/esphome-dist-server:latest
+    container_name: esphome-fleet-server
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      HA_MODE: standalone
+      SERVER_TOKEN: "Ghxyr722!ejcwfefgd"
+    volumes:
+      - /home/esphome/config-fleet:/config/esphome
+      - /home/esphome/dist-data:/data
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      # require_ha_auth defaults to off in standalone, so an unauthed
+      # probe is the right readiness check. Uses python's urllib because
+      # Dockerfile.standalone is slim and ships neither curl nor wget;
+      # python3 is guaranteed to be there as the server runtime.
+      test: ["CMD", "python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8765/ui/api/server-info', timeout=5).status == 200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
+
+#  esphome-fleet-worker:
+#    image: ghcr.io/weirded/esphome-dist-client:latest
+#    container_name: esphome-fleet-worker
+#    restart: unless-stopped
+#    network_mode: host
+#    depends_on:
+#      esphome-fleet-server:
+#        condition: service_healthy
+#    environment:
+#      SERVER_URL: http://127.0.0.1:8765
+#      SERVER_TOKEN: "Ghxyr722!ejcwfefgd"
+#      HOSTNAME: ${WORKER_HOSTNAME:-standalone-worker}
+#      MAX_PARALLEL_JOBS: ${WORKER_MAX_JOBS:-1}
+#    volumes:
+#      - /home/esphome/versions:/esphome-versions
+#      - /etc/localtime:/etc/localtime:ro
